@@ -16,6 +16,16 @@
                   <th>Email Id</th>
                 </tr>
               </thead> 
+              <tbody>
+                @for (item of employeeList;track $index){
+                  <tr>
+                    <td>{{$index+1}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.contactNo}}</td>
+                    <td>{{item.name}}</td>
+                  </tr>
+                }
+              </tbody>
             </table>
           </div>
         </div>    
