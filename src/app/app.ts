@@ -16,7 +16,6 @@ export class App {
   
    constructor(){
   this.createForm();
-  debugger;
   const oldData=localStorage.getItem("EmpData");
   if(oldData!=null){
     const parseData=JSON.parse(oldData);
@@ -39,8 +38,6 @@ export class App {
 
 
    onSave(){
-
-    debugger;
     const oldData=localStorage.getItem("EmpData");
     if(oldData !=null){
       const parseData=JSON.parse(oldData);
@@ -52,4 +49,40 @@ export class App {
     }
     localStorage.setItem("EmpData",JSON.stringify(this.employeeList))
    }
+
+   onEdit(item:EmployeeModel){
+     this.employeeObj=item;
+     this.createForm();
+   }
+
+   onUpdate(){
+    const record=this.employeeList.find(m=>m.empId==this.employeeForm.controls['empId'].value);
+    if(record!=undefined){
+      record.name=this.employeeForm.controls["name"].value;
+      record.city=this.employeeForm.controls["city"].value;
+      record.address=this.employeeForm.controls["address"].value;
+      record.contactNo=this.employeeForm.controls["contactNo"].value;
+      record.emailId=this.employeeForm.controls["emailId"].value;
+      record.pinCode=this.employeeForm.controls["pinCode"].value;
+      record.state=this.employeeForm.controls["state"].value;   
+    }
+    localStorage.setItem("EmpData",JSON.stringify(this.employeeList));
+    this.employeeObj=new EmployeeModel();
+    this.createForm();
+
+   }
+
+   onDelete(empId:number){
+     const deleteIndex=this.employeeList.findIndex(m=>m.empId==empId);
+     const isDelete=confirm("Are you sure want to delete ?");
+
+     if(isDelete){
+      this.employeeList.splice(deleteIndex,1);
+      localStorage.setItem("EmpData",JSON.stringify(this.employeeList));
+     }
+    
+
+
+   }
+
   }
